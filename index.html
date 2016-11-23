@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Untitled Document</title>
+</head>
+
+<body>
+<div id="contenedor"></div>
+<img src="" >
+<script src="./js/jquery-1.12.4.js"></script>
+<script>
+(function ($) {
+  // plugin
+
+  $(function () {
+    // jquery
+
+    $(window).load(function () {
+      // loadPage   
+         $.getJSON('http://api.tumblr.com/v2/blog/hernancalvo.tumblr.com/posts/photo?callback=?', {
+            api_key: 'MrXKG2CF1WCTbEYnD2afisA0QYHuKRAnbkkLNdX1eR8eRAhM0v',
+            limit: 12
+         }).then(function (json) {
+            //do something
+            console.log(json);
+            imprime (json.response.posts);
+         });
+    });
+  });
+})(jQuery);
+function imprime(data){
+   var html='';
+   $.each(data,function(i,d){
+      console.info(d);
+      html +='<h1>'+d.caption+'</h1>';
+       $.each(d.photos,function(j,pic){
+          html +='<img src="'+pic.original_size.url+'" >';
+          });
+      });
+      $('#contenedor').html(html);
+   }
+</script>
+</body>
+</html>
